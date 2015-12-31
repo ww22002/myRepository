@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- 注意使用id属性不是name属性 -->
+	<bean id="myAction" class="com.svse.controller.MyAction"></bean>
+	
+	<!--注册映射器SimpleUrlHandlerMapping
+		适合多个请求，映射到同一个action
+	 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+			<!-- key 表示请求路径 -->
+				<prop key="/insert.action">myAction</prop>
+				<prop key="/update.action">myAction</prop>
+				<prop key="/delete.action">myAction</prop>
+				<prop key="/find.action">myAction</prop>
+			</props>
+		</property>
+	</bean>
+	
+
+
+	<!-- 配置视图解析器，来设置视图的逻辑名称 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置路径前缀 -->
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<!-- 配置路径后缀 -->
+		<property name="suffix" value=".jsp"/>
+		<!-- 前缀+视图逻辑名+后缀=真实路径 -->
+	</bean>
+</beans>
